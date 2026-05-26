@@ -303,11 +303,6 @@ img {
 
 .menu-hamburguesa {
 	display: none;
-	background: transparent;
-	border: 1px solid rgba(255, 255, 255, 0.25);
-	border-radius: 10px;
-	padding: 8px;
-	cursor: pointer;
 }
 
 .menu-hamburguesa span {
@@ -320,35 +315,25 @@ img {
 }
 
 @media (max-width: 900px) {
+	/* Navegación móvil estándar: mostrar enlaces apilados */
 	.menu-hamburguesa {
-		display: inline-flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		gap: 0;
-		margin-left: auto;
+		display: none;
 	}
 
 	.navegacion-superior {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: min(78vw, 280px);
-		height: 100vh;
-		padding: 80px 20px 20px;
+		position: static;
+		top: auto;
+		left: auto;
+		width: 100%;
+		height: auto;
+		padding: 0;
 		margin: 0;
-		background: #0b6aa3;
+		background: transparent;
 		display: flex;
 		flex-direction: column;
-		gap: 18px;
-		transform: translateX(-105%);
-		transition: transform 0.25s ease;
-		z-index: 1000;
-		box-shadow: 12px 0 30px rgba(0, 0, 0, 0.18);
-	}
-
-	.navegacion-superior.is-open {
-		transform: translateX(0);
+		gap: 12px;
+		transform: none;
+		box-shadow: none;
 	}
 
 	.navegacion-superior a {
@@ -356,8 +341,4 @@ img {
 		padding-bottom: 0;
 		font-size: 16px;
 	}
-}
-
-.menu-toggle {
-	display: none;
 }
