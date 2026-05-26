@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Mapa — Línea Mitre</title>
+    <link rel="stylesheet" href="estilos_index.css">
+    <link rel="stylesheet" href="estilos_mapa.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+<body>
+    <header class="barra-superior">
+        <div class="contenedor">
+            <div class="marca">Trenes Argentinos - Mitre - Ramal José León Suárez</div>
+            <nav class="navegacion-superior">
+                <a href="index.html">Inicio</a>
+                <a class="active">Mapa</a>
+                <a href="horario.html">Horario</a>
+                <a href="index.html">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="principal">
+        <section class="tarjeta">
+            <h1>Mapa de estaciones — Línea Mitre</h1>
+            <p class="muted">Recorrido Retiro → José León Suárez · 15 estaciones · Servicio eléctrico</p>
+            <div class="mapa-controles" style="margin-top:14px;">
+                <span>Hacé clic en una estación para ver detalles</span>
+                <button class="ctrl-btn" onclick="centrarMapa()">Centrar</button>
+                <button class="ctrl-btn" onclick="verRecorrido()">Ver recorrido completo</button>
+            </div>
+
+            <div id="mapa"></div>
+
+            <div class="mapa-stats">
+                <div class="stat-item">
+                    <span class="stat-val">15</span>
+                    <span class="stat-lbl">Estaciones</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-val">~28 km</span>
+                    <span class="stat-lbl">Distancia</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-val">~52 min</span>
+                    <span class="stat-lbl">Tiempo estimado</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-val">15 min</span>
+                    <span class="stat-lbl">Frecuencia pico</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="pie-sitio">
+        <div class="contenedor pie-contenido">
+            <section class="pie-bloque pie-marca">
+                <h3>Trenes Argentinos</h3>
+                <p>© 2024 Trenes Argentinos - Ministerio de Transporte. Trabajando para conectar el pais.</p>
+            </section>
+
+            <section class="pie-bloque">
+                <h4>Institucional</h4>
+                <a href="#">Mapa</a>
+                <a href="#">Horario</a>
+                <a href="#">Contacto</a>
+            </section>
+
+            <section class="pie-bloque">
+                <h4>Redes Sociales</h4>
+                <a href="https://www.facebook.com/trenesargentinosop/?locale=es_LA" target="_blank" rel="noopener noreferrer">Facebook</a>
+                <a href="https://www.instagram.com/trenesargentinos/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a href="https://twitter.com/trenesargentinos" target="_blank" rel="noopener noreferrer">Twitter</a>
+            </section>
+
+            <section class="pie-bloque">
+                <h4>Asistencia</h4>
+                <a class="telefono" href="tel:08002228736">0800-222-TREN</a>
+                <p>Lunes a Viernes 05:00 a 01:00 hs</p>
+            </section>
+        </div>
+    </footer>
+
+    <script src="estilo_java.js"></script>
+
+   
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        const estaciones = [
+            { nombre:"Retiro",          lat:-34.5924, lng:-58.3738, tipo:"terminal", anden:"Andenes 1–8",    nota:"Terminal principal · Subte C y E · Terminal de Ómnibus" },
+            { nombre:"3 de Febrero",    lat:-34.5868, lng:-58.3790, tipo:"normal",   anden:"Andén único",    nota:"Barrio de Palermo" },
+            { nombre:"Carranza",        lat:-34.5832, lng:-58.3841, tipo:"normal",   anden:"Andén único",    nota:"Palermo · Acceso por Av. Córdoba" },
+            { nombre:"Colegiales",      lat:-34.5757, lng:-58.4469, tipo:"empalme",  anden:"Andén 1 y 2",   nota:"Combinación Subte Línea D" },
+            { nombre:"Belgrano R",      lat:-34.5636, lng:-58.4560, tipo:"empalme",  anden:"Andén 1 y 2",   nota:"Empalme ramal Mitre · Barrio de Belgrano" },
+            { nombre:"Drago",           lat:-34.5588, lng:-58.4637, tipo:"normal",   anden:"Andén único",    nota:"Barrio de Núñez" },
+            { nombre:"Urquiza",         lat:-34.5557, lng:-58.4717, tipo:"normal",   anden:"Andén único",    nota:"Av. Congreso al 2200" },
+            { nombre:"Pueyrredón",      lat:-34.5510, lng:-58.4780, tipo:"normal",   anden:"Andén único",    nota:"Límite CABA / Provincia" },
+            { nombre:"Miguelete",       lat:-34.5468, lng:-58.4837, tipo:"normal",   anden:"Andén único",    nota:"Partido de General San Martín" },
+            { nombre:"San Martín",      lat:-34.5432, lng:-58.4882, tipo:"normal",   anden:"Andén único",    nota:"Centro comercial de San Martín" },
+            { nombre:"San Andrés",      lat:-34.5385, lng:-58.4935, tipo:"normal",   anden:"Andén único",    nota:"Barrio San Andrés" },
+            { nombre:"Malaver",         lat:-34.5340, lng:-58.4985, tipo:"normal",   anden:"Andén único",    nota:"Villa Maipú" },
+            { nombre:"Villa Ballester", lat:-34.5285, lng:-58.5512, tipo:"empalme",  anden:"Andén 1, 2 y 3", nota:"Empalme ramal Zárate · Nodo principal" },
+            { nombre:"Chilavert",       lat:-34.5238, lng:-58.5578, tipo:"normal",   anden:"Andén único",    nota:"Partido de General San Martín" },
+            { nombre:"José L. Suárez",  lat:-34.5185, lng:-58.5638, tipo:"terminal", anden:"Andenes 1 y 2",  nota:"Terminal del ramal" }
+        ];
+
+        const COLORES = {
+            terminal: { fill:"#0C3D6B", radio:10 },
+            empalme:  { fill:"#1A6DB5", radio:8  },
+            normal:   { fill:"#378ADD", radio:6  }
+        };
+
+        const mapa = L.map("mapa", {
+            center: [-34.555, -58.470],
+            zoom: 12,
+            scrollWheelZoom: true
+        });
+
+        L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · © <a href="https://carto.com/">CARTO</a>',
+            subdomains: "abcd",
+            maxZoom: 19
+        }).addTo(mapa);
+
+        const coords = estaciones.map(e => [e.lat, e.lng]);
+
+        L.polyline(coords, { color:"#0C3D6B", weight:8,  opacity:0.18, lineJoin:"round" }).addTo(mapa);
+        L.polyline(coords, { color:"#1A6DB5", weight:5,  opacity:0.9,  lineJoin:"round" }).addTo(mapa);
+
+        estaciones.forEach((est, idx) => {
+            const cfg = COLORES[est.tipo];
+            const icono = L.divIcon({
+                className: "",
+                html: `<div style="
+                    width:${cfg.radio*2}px; height:${cfg.radio*2}px;
+                    background:${cfg.fill}; border:2.5px solid #fff;
+                    border-radius:50%; box-shadow:0 1px 5px rgba(0,0,0,0.3);
+                    cursor:pointer;
+                "></div>`,
+                iconSize:   [cfg.radio*2, cfg.radio*2],
+                iconAnchor: [cfg.radio,   cfg.radio]
+            });
+
+            const tagLabel = est.tipo === "terminal" ? "Terminal"
+                           : est.tipo === "empalme"  ? "Empalme"
+                           : "Parada " + (idx + 1);
+
+            L.marker([est.lat, est.lng], { icon: icono })
+                .addTo(mapa)
+                .bindPopup(`
+                    <div class="popup-inner">
+                        <div class="popup-nombre">${est.nombre}</div>
+                        <div class="popup-detalle">
+                            <strong>${est.anden}</strong><br>${est.nota}
+                        </div>
+                        <span class="popup-tag ${est.tipo}">${tagLabel}</span>
+                    </div>
+                `, { maxWidth:240, offset:[0, -cfg.radio] });
+        });
+
+        function centrarMapa() {
+            mapa.setView([-34.555, -58.470], 12);
+        }
+
+        function verRecorrido() {
+            mapa.fitBounds(L.latLngBounds(coords), { padding:[30,30] });
+        }
+
+        setTimeout(verRecorrido, 300);
+    </script>
+</body>
+</html>
