@@ -301,24 +301,9 @@ img {
 	}
 }
 
-.menu-hamburguesa {
-	display: none;
-}
 
-.menu-hamburguesa span {
-	display: block;
-	width: 22px;
-	height: 2px;
-	background: #fff;
-	border-radius: 999px;
-	margin: 4px 0;
-}
 
 @media (max-width: 900px) {
-	/* Navegación móvil estándar: mostrar enlaces apilados */
-	.menu-hamburguesa {
-		display: none;
-	}
 
 	.navegacion-superior {
 		position: static;

@@ -476,8 +476,7 @@ th {
 	margin: 4px 0;
 }
 
-@media (max-width: 900px) {
-	/* Navegación móvil: mostrar enlaces apilados sin menú hamburguesa */
+@media (max-width: 900px) {	
 	.menu-hamburguesa {
 		display: none;
 	}
@@ -509,11 +508,6 @@ th {
 	display: none;
 }
 
-/* menú hamburger eliminado */
-
-
-
-/* menú hamburguesa eliminado - no quedan reglas activas */
 
 
 @media (max-width: 600px) {

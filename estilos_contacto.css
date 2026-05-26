@@ -306,7 +306,7 @@ img {
 		gap: 8px;
 	}
 
-/* Ocultar la etiqueta de servicio en pantallas pequeñas (celulares) */
+
 @media (max-width: 600px) {
 	.pill.servicio {
 		display: none;
@@ -333,10 +333,6 @@ img {
 }
 
 @media (max-width: 900px) {
-	/* Navegación móvil estándar: mostrar enlaces apilados */
-	.menu-hamburguesa {
-		display: none;
-	}
 
 	.navegacion-superior {
 		position: static;
@@ -365,7 +361,6 @@ img {
 	display: none;
 }
 
-/* menú hamburguesa eliminado - no quedan reglas activas */
 	.navegacion-superior {
 		display: flex;
 		flex-direction: column;
@@ -395,5 +390,5 @@ img {
 		-webkit-overflow-scrolling: touch;
 	}
 
-	/* menú hamburguesa eliminado */
+
 	}

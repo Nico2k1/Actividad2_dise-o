@@ -408,10 +408,6 @@ th {
 }
 
 @media (max-width: 900px) {
-	/* Navegación móvil estándar: mostrar enlaces apilados */
-	.menu-hamburguesa {
-		display: none;
-	}
 
 	.navegacion-superior {
 		position: static;
@@ -436,7 +432,7 @@ th {
 	}
 }
 
-/* menú hamburguesa eliminado */
+
 
 	.navegacion-superior {
 		display: flex;
