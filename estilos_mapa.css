@@ -100,3 +100,34 @@
         .popup-tag.terminal { background: #0C3D6B; color: #fff; }
         .popup-tag.empalme  { background: #FAEEDA; color: #633806; }
         .popup-tag.normal   { background: #E6F1FB; color: #0C3D6B; }
+
+@media (max-width: 900px) {
+    #mapa {
+        height: 320px;
+    }
+
+    .mapa-controles {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .mapa-controles span {
+        order: -1;
+    }
+
+    .ctrl-btn {
+        width: auto;
+        padding: 10px 12px;
+    }
+
+    .mapa-stats {
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .pill.servicio {
+        display: none; /*Ocultar la etiqueta de servicio en pantallas pequeñas (celulares)*/
+    }
+}

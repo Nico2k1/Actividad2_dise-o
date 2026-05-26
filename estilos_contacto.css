@@ -300,6 +300,26 @@ img {
 }
 
 @media (max-width: 900px) {
+	.barra-superior .contenedor {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
+	}
+
+/* Ocultar la etiqueta de servicio en pantallas pequeñas (celulares) */
+@media (max-width: 600px) {
+	.pill.servicio {
+		display: none;
+	}
+}
+
+	.navegacion-superior {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		width: 100%;
+	}
+
 	.contacto-grid {
 		grid-template-columns: 1fr;
 	}
@@ -310,10 +330,16 @@ img {
 
 	.imagen-destacada {
 		height: 180px;
+		width: 100%;
+		margin-left: 0;
+		border-radius: 10px;
 	}
 
-	.navegacion-superior {
-		display: none;
+	table {
+		display: block;
+		width: 100%;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
 	}
 
 	.pie-sitio {

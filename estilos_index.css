@@ -117,7 +117,6 @@ img {
 	border: 1px solid rgba(10, 33, 49, 0.04);
 }
 
-/* Ajustes para hacer el cuadro de frecuencias más compacto */
 .tarjeta.frecuencias {
 	padding: 12px 18px;
 	overflow: hidden;
@@ -134,7 +133,7 @@ img {
 	font-size: 14px;
 }
 
-/* Asegurar separación visual y que la tarjeta de horarios quede claramente debajo */
+
 .horarios-detallados {
 	margin-top: 22px;
 }
@@ -301,8 +300,6 @@ table {
 	box-shadow: 0 6px 18px rgba(19, 45, 60, 0.04);
 }
 
-/* Separación específica para títulos dentro de la tarjeta de horarios
-   (ej. 'Primer' y 'Último' tren) */
 .horarios-detallados h3,
 .frecuencias h3 {
     margin-top: 14px;
@@ -359,7 +356,6 @@ table {
 	overflow: auto;
 }
 
-/* Encabezado pequeño para los títulos de primer/último tren */
 .titulos-horarios {
 	display: flex;
 	justify-content: space-between;
@@ -456,6 +452,26 @@ th {
 }
 
 @media (max-width: 900px) {
+	.barra-superior .contenedor {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
+	}
+
+
+@media (max-width: 600px) {
+	.pill.servicio {
+		display: none;
+	}
+}
+
+	.navegacion-superior {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		width: 100%;
+	}
+
 	.aplicacion {
 		grid-template-columns: 1fr;
 		padding: 12px;
@@ -478,14 +494,22 @@ th {
 
 	.imagen-destacada {
 		height: 180px;
+		width: 100%;
+		margin-left: 0;
+		border-radius: 10px;
+	}
+	table {
+		display: block;
+		width: 100%;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
 	}
 
-	.navegacion-superior {
-		display: none;
+	.contenedor {
+		padding: 12px;
 	}
 }
 
-/* Hover effects: visual feedback for pointers */
 .navegacion-superior a:hover {
 	text-decoration: underline;
 	opacity: 1;
